@@ -36,5 +36,7 @@ jobs:
           branch: gh-pages
           folder: frontend/dist
           clean: true
-          commit_message: "Deploy frontend to GitHub Pages"
+          commit-message: "Deploy frontend to GitHub Pages"
+          git-config-name: "github-actions[bot]"
+          git-config-email: "github-actions[bot]@users.noreply.github.com"
           token: ${{ secrets.GITHUB_TOKEN }}
