@@ -1,0 +1,43 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: primetrade_db
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+
+  backend:
+    build:
+      context: ./backend
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgres://postgres:password@db:5432/primetrade_db
+      - JWT_SECRET=ChangeThisSecret
+      - JWT_EXPIRES_IN=1h
+    ports:
+      - '4000:4000'
+    depends_on:
+      - db
+    volumes:
+      - ./backend:/app
+
+  frontend:
+    build:
+      context: ./frontend
+    environment:
+      - VITE_API_URL=http://backend:4000/api/v1
+    ports:
+      - '5173:5173'
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+volumes:
+  db-data:
