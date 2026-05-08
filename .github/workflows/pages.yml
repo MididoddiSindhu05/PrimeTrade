@@ -30,15 +30,11 @@ jobs:
         working-directory: frontend
         run: npm run build
 
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v2
-        with:
-          path: frontend/dist
-
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v1
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
+          branch: gh-pages
+          folder: frontend/dist
+          clean: true
+          commit_message: "Deploy frontend to GitHub Pages"
           token: ${{ secrets.GITHUB_TOKEN }}
