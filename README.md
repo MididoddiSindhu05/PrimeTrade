@@ -67,6 +67,15 @@ A scalable REST API project with authentication, role-based access, and a suppor
 - Admin user listing panel for admin accounts
 - Smooth responsive layout suitable for demos
 
+## GitHub Pages deployment
+
+The frontend is configured to deploy automatically from `main` using GitHub Actions.
+Once the workflow runs, the site should be available at:
+
+https://MididoddiSindhu05.github.io/PrimeTrade/
+
+> Note: this deploys the frontend only. The backend API still needs to run on a server or cloud provider for full functionality.
+
 ## Notes on scalability
 
 - API is versioned under `/api/v1` to enable future expansions without breaking changes.
