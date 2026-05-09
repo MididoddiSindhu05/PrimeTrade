@@ -7,8 +7,8 @@ const { sequelize } = require('./models');
 const PORT = process.env.PORT || 4000;
 
 function start() {
-  app.listen(PORT, () => {
-    console.log(`Backend running on http://localhost:${PORT}`);
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Backend running on http://0.0.0.0:${PORT}`);
   });
   
   // Initialize database in the background
