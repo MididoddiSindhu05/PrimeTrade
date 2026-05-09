@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 4000;
 async function start() {
   try {
     await sequelize.authenticate();
-    await sequelize.sync({ force: true });
+    sequelize.sync({ force: true }).catch(error => console.error('Database sync failed:', error));
     app.listen(PORT, () => {
       console.log(`Backend running on http://localhost:${PORT}`);
     });
