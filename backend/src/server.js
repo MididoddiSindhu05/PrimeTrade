@@ -6,17 +6,23 @@ const { sequelize } = require('./models');
 
 const PORT = process.env.PORT || 4000;
 
-async function start() {
-  try {
-    await sequelize.authenticate();
-    sequelize.sync({ force: true }).catch(error => console.error('Database sync failed:', error));
-    app.listen(PORT, () => {
-      console.log(`Backend running on http://localhost:${PORT}`);
+function start() {
+  app.listen(PORT, () => {
+    console.log(`Backend running on http://localhost:${PORT}`);
+  });
+  
+  // Initialize database in the background
+  sequelize.authenticate()
+    .then(() => {
+      console.log('Database authenticated');
+      return sequelize.sync({ force: true });
+    })
+    .then(() => {
+      console.log('Database synchronized');
+    })
+    .catch(error => {
+      console.error('Database error:', error);
     });
-  } catch (error) {
-    console.error('Database connection failed:', error);
-    process.exit(1);
-  }
 }
 
 start();
