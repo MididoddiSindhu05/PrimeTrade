@@ -11,5 +11,9 @@ export default defineConfig({
   preview: {
     port: 5173,
     host: '0.0.0.0',
+    allowedHosts: [
+      'primetrade-frontend-production.up.railway.app',
+      'localhost',
+    ],
   },
 });
