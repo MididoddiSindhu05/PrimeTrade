@@ -17,6 +17,10 @@ app.use('/api/v1/tasks', taskRoutes);
 app.use('/api/v1/admin', adminRoutes);
 app.use('/api/v1/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+app.get('/', (req, res) => {
+  res.json({ status: 'ok', service: 'PrimeTrade backend' });
+});
+
 app.get('/api/v1/health', (req, res) => {
   res.json({ status: 'ok', uptime: process.uptime() });
 });
