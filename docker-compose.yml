@@ -4,7 +4,7 @@ services:
     build:
       context: ./backend
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
       - DB_DIALECT=sqlite
       - JWT_SECRET=ChangeThisSecret
       - JWT_EXPIRES_IN=1h
