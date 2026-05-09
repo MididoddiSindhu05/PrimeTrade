@@ -4,19 +4,25 @@ dotenv.config();
 const app = require('./app');
 const { sequelize } = require('./models');
 
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 8080;
 
-async function start() {
-  try {
-    await sequelize.authenticate();
-    sequelize.sync({ force: true }).catch(error => console.error('Database sync failed:', error));
-    app.listen(PORT, () => {
-      console.log(`Backend running on http://localhost:${PORT}`);
-    });
-  } catch (error) {
-    console.error('Database connection failed:', error);
-    process.exit(1);
-  }
-}
+// Start listening immediately so health checks pass and Railway keeps the app online.
+// Database operations run in the background — they must not block app.listen().
+app.listen(PORT, () => {
+  console.log(`Backend running on http://localhost:${PORT}`);
+});
 
-start();
+// Authenticate and sync the database as background promises.
+console.log('Connecting to database...');
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Database connection established successfully.');
+    return sequelize.sync({ force: true });
+  })
+  .then(() => {
+    console.log('Database synced successfully.');
+  })
+  .catch((error) => {
+    console.error('Database initialisation failed:', error);
+  });
