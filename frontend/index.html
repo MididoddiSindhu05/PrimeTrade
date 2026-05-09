@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Primetrade Dashboard</title>
+    <!-- Runtime config: sets window.RUNTIME_API_URL before the app bundle loads.
+         entrypoint.sh rewrites /dist/config.js at container startup with the
+         real backend URL from the VITE_API_URL environment variable. -->
+    <script src="/config.js"></script>
   </head>
   <body>
     <div id="root"></div>
