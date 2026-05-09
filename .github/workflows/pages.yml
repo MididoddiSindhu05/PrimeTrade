@@ -11,6 +11,7 @@ jobs:
     permissions:
       pages: write
       id-token: write
+      contents: read
       contents: write
 
     steps:
@@ -30,10 +31,13 @@ jobs:
         working-directory: frontend
         run: npm run build
 
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v1
-        with:
-          path: frontend/dist
-
       - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v1
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: frontend/dist
+          clean: true
+          commit-message: "Deploy frontend to GitHub Pages"
+          git-config-name: "github-actions[bot]"
+          git-config-email: "github-actions[bot]@users.noreply.github.com"
+          token: ${{ secrets.GITHUB_TOKEN }}
