@@ -1,4 +1,4 @@
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:4000/api/v1';
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:8080/api/v1';
 
 export async function apiRequest(path, method = 'GET', body = null, token = null) {
   const headers = { 'Content-Type': 'application/json' };
